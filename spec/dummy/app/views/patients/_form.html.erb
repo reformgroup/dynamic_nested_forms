@@ -1,0 +1,32 @@
+<%= form_with(model: patient, local: true) do |form| %>
+  <% if patient.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(patient.errors.count, "error") %> prohibited this patient from being saved:</h2>
+
+      <ul>
+        <% patient.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :patient_name %>
+  </div>
+  
+  <div class="field nested-container">
+    <%= form.label "Appointments" %>
+    <%= autocomplete_to_add_item "autocomplete_appointment", form, :appointments, appointments_index_path %>
+    <div class="nested-items">
+      <%= form.fields_for :appointments, @appointments do |appointment_f| %>
+        <%= render "appointment_item", f: appointment_f %>
+      <% end %>
+    </div>
+  </div>
+  
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,10 @@
+<div class="nested-item">
+  <div class="nested-content">
+    <% if f.object.physician %>
+      <%= f.object.physician.name %>
+    <% end %>
+  </div>
+  <%= f.hidden_field :physician_id, class: "nested-value" %>
+  <%= f.hidden_field :_destroy %>
+  <%= link_to_remove_item "&times;".html_safe %>
+</div>
